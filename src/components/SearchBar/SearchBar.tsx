@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import css from './SearchBar.module.css'
 import { FaSearch } from 'react-icons/fa';
+import React from "react";
 
-const SearchBar = ({onSubmit}) => {
+// const SearchBar = ({onSubmit}) => {
+//    const [search, setSearch] = useState('');
+
+//    const searchResult = event => {
+//         setSearch(event.currentTarget.value);
+//     }
+
+// const handleSubmit = event => {
+//     event.preventDefault();
+//     onSubmit(search.trim());
+//     setSearch('');
+
+//     console.log('click');
+// } 
+
+type searchResult = {
+    setSearch: (inputValue: string) => void;
+}
+
+const SearchBar: React.FC<searchResult> = ({onSubmit}) => {
    const [search, setSearch] = useState('');
 
-   const searchResult = event => {
-        setSearch(event.currentTarget.value);
-    }
-
-    const handleSubmit = event => {
+const handleSubmit = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         onSubmit(search.trim());
         setSearch('');

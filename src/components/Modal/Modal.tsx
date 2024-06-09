@@ -1,12 +1,17 @@
 import { useEffect } from "react";
 import PropTypes from 'prop-types';
 import css from './Modal.module.css'
+import React from "react";
 
+interface ImageModalProps {
+    onClose: () => void,
+    imgUrl: string,
+}
 
-const Modal = ({onClose, imgUrl}) => {
+const Modal: React.FC<ImageModalProps> = ({onClose, imgUrl}) => {
 
     useEffect(() => {
-        const handleKeydown = event => {
+        const handleKeydown = (event: { code: string; }) => {
             if (event.code === 'Escape'){
                onClose();
             }
@@ -18,7 +23,7 @@ const Modal = ({onClose, imgUrl}) => {
         }
     },[onClose]);
 
-    const handleBackdropClick = (event) => {
+    const handleBackdropClick = (event: { currentTarget: any; target: any; }) => {
         if (event.currentTarget === event.target){
             onClose();
         }

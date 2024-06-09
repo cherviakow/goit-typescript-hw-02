@@ -6,28 +6,28 @@ import  Modal  from "./Modal/Modal";
 import { Button } from "./Button/Button";
 import { Loader } from "./Loader/Loader";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const App = () => {
+const App: React.FC = () => {
   
-  const [pictures, setPictures] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [largeImageUrl, setLargeImageUrl] = useState('');
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState('');
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [total, setTotal] = useState(0);
+  const [pictures, setPictures] = useState<Picture[] | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [largeImageUrl, setLargeImageUrl] = useState<string | null> (null);
+  const [page, setPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>('');
+  const [error, setError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [total, setTotal] = useState<number>(0);
 
-  const getLargeImgUrl = imgUrl => {
+  const getLargeImgUrl = (imgUrl: Image) => {
     setLargeImageUrl(imgUrl);
     toggleModal();
   };
 
   const handleLoadMore = () => {
-    setPage(prevState => prevState + 1,
+    setPage((prevState: number) => prevState + 1,
     );
   };
 
@@ -59,7 +59,7 @@ const App = () => {
         const data = await fetchPictures(query, page);
         
         if(data.hits.length){
-          setPictures(prevPictures => [...prevPictures, ...data.hits]);
+          setPictures((prevPictures: Picture[] | null) => [...prevPictures, ...data.hits] : data);
           setTotal(data.totalHits);
           setIsLoading(false);
         } else {
