@@ -12,16 +12,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
   
-  const [pictures, setPictures] = useState<Picture[] | null>(null);
+  const [pictures, setPictures] = useState<Picture[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [largeImageUrl, setLargeImageUrl] = useState<string | null> (null);
+  const [largeImageUrl, setLargeImageUrl] = useState<string> ('');
   const [page, setPage] = useState<number>(1);
   const [query, setQuery] = useState<string>('');
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
 
-  const getLargeImgUrl = (imgUrl: Image) => {
+  const getLargeImgUrl = (imgUrl: string) => {
     setLargeImageUrl(imgUrl);
     toggleModal();
   };
@@ -35,7 +35,7 @@ const App: React.FC = () => {
     setShowModal(prevState => !prevState);
   };
 
-  const searchResult = value => {
+  const searchResult = (value: string) => {
     if (value === '') {
     toast.warning('Please write something', {
       position: 'top-center',
@@ -56,22 +56,22 @@ const App: React.FC = () => {
       setIsLoading(true);
 
       try {
-        const data = await fetchPictures(query, page);
+        const data:{ hits:Picture[],totalHits: number} = await fetchPictures(query, page);
         
         if(data.hits.length){
-          setPictures((prevPictures: Picture[] | null) => [...prevPictures, ...data.hits] : data);
+          setPictures((prevPictures: Picture[]) => [...prevPictures, ...data.hits]);
           setTotal(data.totalHits);
           setIsLoading(false);
         } else {
-          setError(
+          
             toast.error(
               'Sorry canot find your request',
               {position: 'top-center', autoClose: 2000}
             )
-          );
+          
         }
-      } catch(error){
-        setError(error);
+      } catch(error: any){
+        setError(error.message);
       } finally {
         setIsLoading(false);
       }
@@ -96,25 +96,3 @@ const App: React.FC = () => {
   }
  
 export default App;
-
-
-
-
-
-
-// export const App = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101'
-//       }}
-//     >
-//       React homework template
-//     </div>
-//   );
-// };

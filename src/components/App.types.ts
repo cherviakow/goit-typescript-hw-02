@@ -1,5 +1,6 @@
 interface Picture{
-    largeImageURL(largeImageURL: any): unknown;
+    tags: string;
+    largeImageURL: string;
     webformatURL: string | undefined;
     id: string;
   urls: {

@@ -3,8 +3,8 @@ import css from './ImageGallery.module.css'
 import React from "react";
 
 interface ImageGalleryProps {
-    pictures: Picture[] | null;
-    onClick: (photo: Picture) => void;
+    pictures: Picture[];
+    onClick: (photo: string) => void;
 
 }
 
@@ -17,21 +17,3 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({pictures, onClick}) =
         </div>
     )
 }
-
-
-
-
-
-// export const ImageGallery = ({pictures, onClick}) => {
-//     return (
-//         <div className={css.imageGallery}>
-//             <ImageGalleryItem onClickImg={onClick} pictures={pictures} />
-//         </div>
-//     )
-// }
-
-
-// ImageGallery.propTypes = {
-//     pictures: PropTypes.array.isRequired,
-//     onClick: PropTypes.func.isRequired,
-// }

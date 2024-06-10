@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import PropTypes from 'prop-types';
 import css from './Modal.module.css'
 import React from "react";
 
@@ -39,8 +38,3 @@ const Modal: React.FC<ImageModalProps> = ({onClose, imgUrl}) => {
     }
 
 export default Modal;
-
-Modal.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    imgUrl: PropTypes.string.isRequired,
-}
